@@ -23,7 +23,13 @@
         default = pkgs.mkShell {
           packages = with pkgs; [
             (rust-bin.nightly.latest.default.override {
-              extensions = [ "rust-src" "llvm-tools-preview" ];
+              extensions = [
+                "rust-src"
+                "llvm-tools-preview"
+                "rustfmt"
+                "clippy"
+                "rust-analyzer"
+              ];
             })
             llvm
             libclang

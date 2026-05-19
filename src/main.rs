@@ -21,13 +21,30 @@ fn main() {
         hid.scan_input();
         let keys = hid.keys_down();
 
-        if keys.intersects(KeyPad::START) { break; }
+        if keys.intersects(KeyPad::START) {
+            break;
+        }
 
-        if keys.intersects(KeyPad::SELECT) { game.reset_all(); dirty = true; }
-        if keys.intersects(KeyPad::L) { game.select(0); dirty = true; }
-        if keys.intersects(KeyPad::R) { game.select(1); dirty = true; }
-        if keys.intersects(KeyPad::UP) { game.adjust_life(1); dirty = true; }
-        if keys.intersects(KeyPad::DOWN) { game.adjust_life(-1); dirty = true; }
+        if keys.intersects(KeyPad::SELECT) {
+            game.reset_all();
+            dirty = true;
+        }
+        if keys.intersects(KeyPad::L) {
+            game.select(0);
+            dirty = true;
+        }
+        if keys.intersects(KeyPad::R) {
+            game.select(1);
+            dirty = true;
+        }
+        if keys.intersects(KeyPad::UP) {
+            game.adjust_life(1);
+            dirty = true;
+        }
+        if keys.intersects(KeyPad::DOWN) {
+            game.adjust_life(-1);
+            dirty = true;
+        }
 
         if dirty {
             draw_player(&top, &game.players[0], game.selected == 0);

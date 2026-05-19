@@ -7,7 +7,10 @@ pub struct Player {
 
 impl Player {
     pub fn new(name: &'static str) -> Self {
-        Self { name, life: STARTING_LIFE }
+        Self {
+            name,
+            life: STARTING_LIFE,
+        }
     }
 
     pub fn reset(&mut self) {

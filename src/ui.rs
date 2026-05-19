@@ -1,5 +1,5 @@
-use ctru::prelude::*;
 use crate::player::Player;
+use ctru::prelude::*;
 
 pub fn draw_player(console: &Console, player: &Player, active: bool) {
     console.select();

@@ -8,10 +8,7 @@ pub struct Game {
 impl Game {
     pub fn new() -> Self {
         Self {
-            players: [
-                Player::new("Player 1"),
-                Player::new("Player 2"),
-            ],
+            players: [Player::new("Player 1"), Player::new("Player 2")],
             selected: 0,
         }
     }
