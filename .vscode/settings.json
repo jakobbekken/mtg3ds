@@ -1,0 +1,8 @@
+{
+  "editor.tabSize": 4,
+  "editor.formatOnSave": true,
+  "rust-analyzer.cargo.target": "armv6k-nintendo-3ds",
+  "rust-analyzer.check.command": "clippy",
+  "rust-analyzer.check.allTargets": false,
+  "rust-analyzer.procMacro.enable": false
+}

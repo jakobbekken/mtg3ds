@@ -1,0 +1,9 @@
+[[language]]
+name = "rust"
+auto-format = true
+formatter = { command = "rustfmt" }
+
+[language-server.rust-analyzer.config]
+cargo = { target = "armv6k-nintendo-3ds" }
+check = { command = "clippy", allTargets = false }
+procMacro = { enable = false }
