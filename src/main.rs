@@ -1,57 +1,83 @@
+#![feature(allocator_api)]
+mod audio;
 mod game;
 mod player;
 mod ui;
 
+use audio::Audio;
+use citro2d::{Citro2d, TextBuf};
 use ctru::prelude::*;
 use game::Game;
-use ui::draw_player;
+
+const IDLE_TIMEOUT: u32 = 90;
 
 fn main() {
-    let gfx = Gfx::new().expect("Failed to init graphics");
+    let gfx = Gfx::new().expect("Failed to init gfx");
     let mut hid = Hid::new().expect("Failed to init HID");
     let apt = Apt::new().expect("Failed to init APT");
 
-    let top = Console::new(gfx.top_screen.borrow_mut());
-    let bot = Console::new(gfx.bottom_screen.borrow_mut());
+    let c2d = Citro2d::new(&gfx).expect("Failed to init citro2d");
+    let text_buf = TextBuf::new(512).expect("Failed to create text buffer");
+
+    let audio = Audio::new();
+    let mut channel = audio.setup_channel();
+    let mut wave = Audio::generate_tone();
 
     let mut game = Game::new();
     let mut dirty = true;
+    let mut idle_timer: u32 = 0;
+    let mut show_active = false;
 
     while apt.main_loop() {
         hid.scan_input();
-        let keys = hid.keys_down();
+        let keys_down = hid.keys_down();
 
-        if keys.intersects(KeyPad::START) {
+        if keys_down.intersects(KeyPad::START) {
             break;
         }
-
-        if keys.intersects(KeyPad::SELECT) {
+        if keys_down.intersects(KeyPad::SELECT) {
             game.reset_all();
             dirty = true;
         }
-        if keys.intersects(KeyPad::L) {
-            game.select(0);
+
+        if keys_down.intersects(KeyPad::TOUCH) {
+            let (x, y) = hid.touch_position();
+            let player = if (x as f32) < 160.0 { 0 } else { 1 };
+            let delta = if (y as f32) < 120.0 { 1 } else { -1 };
+            game.select(player);
+            game.adjust_life(delta);
+            idle_timer = 0;
+            if !show_active {
+                show_active = true;
+            }
             dirty = true;
-        }
-        if keys.intersects(KeyPad::R) {
-            game.select(1);
-            dirty = true;
-        }
-        if keys.intersects(KeyPad::UP) {
-            game.adjust_life(1);
-            dirty = true;
-        }
-        if keys.intersects(KeyPad::DOWN) {
-            game.adjust_life(-1);
-            dirty = true;
+            channel.clear_queue();
+            let _ = channel.queue_wave(&mut wave);
+        } else {
+            idle_timer += 1;
+            if idle_timer >= IDLE_TIMEOUT && show_active {
+                show_active = false;
+                dirty = true;
+            }
         }
 
         if dirty {
-            draw_player(&top, &game.players[0], game.selected == 0);
-            draw_player(&bot, &game.players[1], game.selected == 1);
+            text_buf.clear();
+            c2d.frame(|frame| {
+                ui::draw_top(
+                    frame,
+                    c2d.top_screen(),
+                    game.players[0].life,
+                    game.players[1].life,
+                    game.selected,
+                    show_active,
+                    &text_buf,
+                );
+                ui::draw_bottom(frame, c2d.bottom_screen(), &text_buf);
+            });
             dirty = false;
+        } else {
+            gfx.wait_for_vblank();
         }
-
-        gfx.wait_for_vblank();
     }
 }

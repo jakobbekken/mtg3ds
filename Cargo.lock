@@ -55,6 +55,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c4512299f36f043ab09a583e57bceb5a5aab7a73db1805848e8fef3c9e8c78b3"
 
 [[package]]
+name = "byteorder"
+version = "1.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1fd0f2584146f6f2ef48085050886acf353beff7305ebd1ae69500e27c67f64b"
+
+[[package]]
 name = "cc"
 version = "1.2.62"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -78,6 +84,40 @@ name = "cfg-if"
 version = "1.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9330f8b2ff13f34540b44e946ef35111825727b38d33286ef986142615121801"
+
+[[package]]
+name = "citro2d"
+version = "0.1.0"
+source = "git+https://github.com/jakobbekken/citro2d-rs.git#2c7b0d1514463b2032978a9f035ee6a3cbd851e6"
+dependencies = [
+ "citro2d-sys",
+ "ctru-rs",
+]
+
+[[package]]
+name = "citro2d-sys"
+version = "0.1.0"
+source = "git+https://github.com/jakobbekken/citro2d-rs.git#2c7b0d1514463b2032978a9f035ee6a3cbd851e6"
+dependencies = [
+ "bindgen",
+ "cc",
+ "citro3d-sys",
+ "ctru-sys",
+ "doxygen-rs",
+ "libc",
+]
+
+[[package]]
+name = "citro3d-sys"
+version = "0.1.0"
+source = "git+https://github.com/rust3ds/citro3d-rs.git#b77bd0ac0fde191a117d1378e9572b6251ad54e6"
+dependencies = [
+ "bindgen",
+ "cc",
+ "ctru-sys",
+ "doxygen-rs",
+ "libc",
+]
 
 [[package]]
 name = "clang-sys"
@@ -152,10 +192,29 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0cc23270f6e1808e30a928bdc84dea0b9b4136a8bc82338574f23baf47bbd280"
 
 [[package]]
+name = "hash32"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "47d60b12902ba28e2730cd37e95b8c9223af2808df9e902d4df49588d1470606"
+dependencies = [
+ "byteorder",
+]
+
+[[package]]
 name = "hashbrown"
 version = "0.17.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ed5909b6e89a2db4456e54cd5f673791d7eca6732202bbf2a9cc504fe2f9b84a"
+
+[[package]]
+name = "heapless"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0bfb9eb618601c89945a70e254898da93b13be0388091d42117462b265bb3fad"
+dependencies = [
+ "hash32",
+ "stable_deref_trait",
+]
 
 [[package]]
 name = "indexmap"
@@ -229,7 +288,9 @@ checksum = "68354c5c6bd36d73ff3feceb05efa59b6acb7626617f4962be322a825e61f79a"
 name = "mtg3ds"
 version = "0.1.0"
 dependencies = [
+ "citro2d",
  "ctru-rs",
+ "heapless",
 ]
 
 [[package]]
@@ -428,6 +489,12 @@ name = "spin"
 version = "0.9.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6980e8d7511241f8acf4aebddbb1ff938df5eebe98691418c4468d0b72a96a67"
+
+[[package]]
+name = "stable_deref_trait"
+version = "1.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6ce2be8dc25455e1f91df71bfa12ad37d7af1092ae736f3a6cd0e37bc7810596"
 
 [[package]]
 name = "static_assertions"

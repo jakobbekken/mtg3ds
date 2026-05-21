@@ -1,14 +1,12 @@
 pub const STARTING_LIFE: i32 = 20;
 
 pub struct Player {
-    pub name: &'static str,
     pub life: i32,
 }
 
 impl Player {
-    pub fn new(name: &'static str) -> Self {
+    pub fn new() -> Self {
         Self {
-            name,
             life: STARTING_LIFE,
         }
     }
