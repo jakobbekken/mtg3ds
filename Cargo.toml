@@ -4,6 +4,6 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-citro2d = { git = "https://github.com/jakobbekken/citro2d-rs.git" }
+citro2d = { git = "https://github.com/jakobbekken/citro2d-rs.git", tag = "v0.1.0" }
 ctru-rs = { git = "https://github.com/rust3ds/ctru-rs.git" }
 heapless = "0.8"
