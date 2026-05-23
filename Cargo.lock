@@ -88,7 +88,7 @@ checksum = "9330f8b2ff13f34540b44e946ef35111825727b38d33286ef986142615121801"
 [[package]]
 name = "citro2d"
 version = "0.1.0"
-source = "git+https://github.com/jakobbekken/citro2d-rs.git#2c7b0d1514463b2032978a9f035ee6a3cbd851e6"
+source = "git+https://github.com/jakobbekken/citro2d-rs.git?tag=v0.1.0#2c7b0d1514463b2032978a9f035ee6a3cbd851e6"
 dependencies = [
  "citro2d-sys",
  "ctru-rs",
@@ -97,7 +97,7 @@ dependencies = [
 [[package]]
 name = "citro2d-sys"
 version = "0.1.0"
-source = "git+https://github.com/jakobbekken/citro2d-rs.git#2c7b0d1514463b2032978a9f035ee6a3cbd851e6"
+source = "git+https://github.com/jakobbekken/citro2d-rs.git?tag=v0.1.0#2c7b0d1514463b2032978a9f035ee6a3cbd851e6"
 dependencies = [
  "bindgen",
  "cc",
